@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const users = [
     { username: 'John Doe', email: 'john.doe@example.com', id: 1 }
@@ -21,6 +22,15 @@ app.post('/api/users', (req, res) => {
     // console.log(users);
     res.send(users)
 })
+
+app.get('/health', (req, res) => {
+    res.send("Health is good")
+})
+
+// Handle all routes and serve the main HTML file
+app.get('*', (__, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 
 app.listen(3000, () => {
